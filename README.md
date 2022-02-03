@@ -95,4 +95,6 @@ That git step completed silently but with no obvious difference on my system. He
 
 Next step is to familiarise with [Digital Ocean's image upload procedure](https://docs.digitalocean.com/products/images/custom-images/how-to/upload/).
 
-Then, presumably, to upload setup.sh and run it on the Alpine Linux droplet to expand its filesystem.
+Which all worked fine for me. Thanks [Ben Pye](https://github.com/benpye/alpine-droplet), [jirutka](https://github.com/alpinelinux/alpine-make-vm-image/) and, of course, the [wonderful Alpine Linux team](https://alpinelinux.org/).
+
+Oh, on that Digital Ocean droplet build, make sure you include your ssh keys and, if you are a long-time Digital Ocean customer, that your ssh keys are ed22519 or better.
