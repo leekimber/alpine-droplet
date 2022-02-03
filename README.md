@@ -81,11 +81,11 @@ $ sudo ./build-image.sh
 muchas textas
 ...
 
-$ ls
-alpine-make-vm-image  alpine-virt-image-2022-02-03-1802.qcow2.bz2  build-image.sh  README.md  setup.sh
+$ ls -lh *.bz2
+42M alpine-virt-image-2022-02-03-1802.qcow2.bz2
 ```
 
-Which looks close to the description below:
+Which looks 42Mb closer to the description below:
 
 This will produce `alpine-virt-image-{timestamp}.qcow2.bz2` which can then be uploaded to Digital Ocean and used to create your droplet. Check out their instructions at https://blog.digitalocean.com/custom-images/ for uploading the image and creating your droplet.
 
