@@ -80,7 +80,10 @@ $ sudo ./build-image.sh
 ...
 muchas textas
 ...
+```
+Seems to have completed. Let's check:
 
+```
 $ ls -lh *.bz2
 42M alpine-virt-image-2022-02-03-1802.qcow2.bz2
 ```
