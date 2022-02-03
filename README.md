@@ -24,6 +24,75 @@ run:
 
 Note: Need root permission.
 
+2022-02-03: After cloning, cd-ing into repo, I see:
+```
+$ sudo ./build-image.sh 
+./build-image.sh: 13: ./build-image.sh: ./alpine-make-vm-image/alpine-make-vm-image: not found
+```
+
+We need the https://github.com/alpinelinux/alpine-make-vm-image repo as a submodule, so:
+
+```
+$ git submodule init
+Submodule 'alpine-make-vm-image' (https://github.com/alpinelinux/alpine-make-vm-image.git) registered for path 'alpine-make-vm-image'
+
+$ git submodule update
+Cloning into 'alpine-make-vm-image'...
+remote: Enumerating objects: 296, done.
+remote: Counting objects: 100% (37/37), done.
+remote: Compressing objects: 100% (26/26), done.
+remote: Total 296 (delta 15), reused 28 (delta 9), pack-reused 259
+Receiving objects: 100% (296/296), 62.33 KiB | 0 bytes/s, done.
+Resolving deltas: 100% (167/167), done.
+Checking connectivity... done.
+Submodule path 'alpine-make-vm-image': checked out 'b0f0a05b1848e0ff363cfbb36bf319fc02132caa'
+```
+
+OK, let's try building again:
+
+```
+$ sudo ./build-image.sh 
+
+> apk not found, downloading static apk-tools
+ERROR: cannot verify gitlab.alpinelinux.org's certificate, issued by ‘CN=R3,O=Let's Encrypt,C=US’:
+  Issued certificate has expired.
+To connect to gitlab.alpinelinux.org insecurely, use `--no-check-certificate'.
+```
+
+Self-explanatory error. Workaround (not fix) is to modify alpine-make-vm-image's 'wgets()' function to ignore SSL cert errors:
+
+```
+vim alpine-make-vm-image/alpine-make-vm-image
+```
+On line 309, change:
+```
+&& wget -T 10 --no-verbose "$url" \
+```
+to
+```
+&& wget --no-check-certificate -T 10 --no-verbose "$url" \
+```
+And try again:
+
+```
+$ sudo ./build-image.sh 
+
+...
+muchas textas
+...
+
+$ ls
+alpine-make-vm-image  alpine-virt-image-2022-02-03-1802.qcow2.bz2  build-image.sh  README.md  setup.sh
+```
+
+Which looks close to the description below:
+
 This will produce `alpine-virt-image-{timestamp}.qcow2.bz2` which can then be uploaded to Digital Ocean and used to create your droplet. Check out their instructions at https://blog.digitalocean.com/custom-images/ for uploading the image and creating your droplet.
 
 In this commit, the script will produce alpine `version 3.15` image. If you wanna build latest version, you can pull latest [alpine-make-vm-image repo](https://github.com/alpinelinux/alpine-make-vm-image): `git submodule foreach git pull origin master`
+
+That git step completed silently but with no obvious difference on my system. Hence the manual intervention logged above.
+
+Next step is to familiarise with [Digital Ocean's image upload procedure](https://docs.digitalocean.com/products/images/custom-images/how-to/upload/).
+
+Then, presumably, to upload setup.sh and run it on the Alpine Linux droplet to expand its filesystem.
