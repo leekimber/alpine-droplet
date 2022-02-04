@@ -88,7 +88,7 @@ $ ls -lh *.bz2
 42M alpine-virt-image-2022-02-03-1802.qcow2.bz2
 ```
 
-Which looks 42Mb closer to the description below:
+Which looks 42Mb closer to the output anticipated below:
 
 This will produce `alpine-virt-image-{timestamp}.qcow2.bz2` which can then be uploaded to Digital Ocean and used to create your droplet. Check out their instructions at https://blog.digitalocean.com/custom-images/ for uploading the image and creating your droplet.
 
@@ -96,8 +96,6 @@ In this commit, the script will produce alpine `version 3.15` image. If you wann
 
 That git step completed silently but with no obvious difference on my system. Hence the manual intervention logged above.
 
-Next step is to familiarise with [Digital Ocean's image upload procedure](https://docs.digitalocean.com/products/images/custom-images/how-to/upload/).
+Next step is to familiarise with [Digital Ocean's image upload procedure](https://docs.digitalocean.com/products/images/custom-images/how-to/upload/). That import worked fine for me, producing a functional droplet. Be careful, while building the droplet in Digital Ocean's control panel, to make sure you include your ssh keys and, if you are a long-time Digital Ocean customer, that your ssh keys are ed22519 or better.
 
-Which all worked fine for me. Thanks [Ben Pye](https://github.com/benpye/alpine-droplet), [jirutka](https://github.com/alpinelinux/alpine-make-vm-image/) and, of course, the [wonderful Alpine Linux team](https://alpinelinux.org/).
-
-Oh, on that Digital Ocean droplet build, make sure you include your ssh keys and, if you are a long-time Digital Ocean customer, that your ssh keys are ed22519 or better.
+Thanks [Ben Pye](https://github.com/benpye/alpine-droplet), [jirutka](https://github.com/alpinelinux/alpine-make-vm-image/) and, of course, the [wonderful Alpine Linux team](https://alpinelinux.org/).
